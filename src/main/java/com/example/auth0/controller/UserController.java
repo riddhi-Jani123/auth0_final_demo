@@ -37,7 +37,7 @@ public class UserController {
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> result = restTemplate
-                .exchange("https://dev-vf3vusc8.us.auth0.com/api/v2/users", HttpMethod.GET, entity, String.class);
+                .exchange("https://auth0-services.us.auth0.com/v2/users", HttpMethod.GET, entity, String.class);
         return result;
     }
 

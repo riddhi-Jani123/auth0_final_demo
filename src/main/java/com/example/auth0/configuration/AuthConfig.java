@@ -37,7 +37,7 @@ import java.io.UnsupportedEncodingException;
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.csrf().disable();
-            http
+        http
                     .authorizeRequests()
                     .antMatchers("/callback", "/login", "/").permitAll()
                     .anyRequest().authenticated()
@@ -99,6 +99,7 @@ import java.io.UnsupportedEncodingException;
 
     public String getContextPath(HttpServletRequest request) {
         String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        System.out.println(request.getServerPort());
         return path;
     }
     }

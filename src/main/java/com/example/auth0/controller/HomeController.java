@@ -15,34 +15,8 @@ import java.io.IOException;
 public class HomeController {
 
 
-//    @GetMapping(value = "/")
-//    @ResponseBody
-//    public String home(final Authentication authentication) {
-//        TestingAuthenticationToken token = (TestingAuthenticationToken) authentication;
-//        DecodedJWT jwt = JWT.decode(token.getCredentials().toString());
-//        String email = jwt.getClaims().get("email").asString();
-//        return "Welcome, " + email + "!";
-//    }
-
-//    @GetMapping(value = "/home")
-//    @ResponseBody
-//    public String home(HttpServletRequest request, HttpServletResponse response, final Authentication authentication) throws IOException {
-//        System.out.println("Authentication obj is :" + authentication);
-//        if (authentication != null && authentication instanceof TestingAuthenticationToken) {
-//            TestingAuthenticationToken token = (TestingAuthenticationToken) authentication;
-//            System.out.println("Token is " + token);
-//            DecodedJWT jwt = JWT.decode(token.getCredentials().toString());
-//            String email = jwt.getClaims().get("email").asString();
-//
-//            return "Welcome, " + email + "!";
-//        } else {
-//            response.sendRedirect("http://localhost:8080/login");
-//            return null;
-//        }
-//
-//    }
 @GetMapping(value = "/register")
-protected String register() {
+public String register() {
 
     return "In Register ";
 }

@@ -46,11 +46,10 @@ import java.util.HashMap;
 
     @GetMapping(value = "/login")
     protected void login(HttpServletRequest request, HttpServletResponse response) throws IOException, IOException {
-        String redirectUri = "http://localhost:8080/callback";
+        String redirectUri = config.getContextPath(request)+"/callback";
         String authorizeUrl = authenticationController.buildAuthorizeUrl(request, response, redirectUri)
                 .withScope("openid email profile")
                 .build();
-        System.out.println("authorizeUrl "+authorizeUrl);
         response.sendRedirect(authorizeUrl);
     }
 
@@ -64,11 +63,8 @@ import java.util.HashMap;
                 jwt.getToken());
         authToken2.setAuthenticated(true);
 
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        securityContext.setAuthentication(authToken2);
+       SecurityContextHolder.getContext().setAuthentication(authToken2);
 
-
-//        ObjectMapper objectMapper = new ObjectMapper();
         JSONObject requestBody = new JSONObject();
         requestBody.put("token", tokens.getIdToken());
         System.out.println(requestBody);
@@ -82,23 +78,6 @@ import java.util.HashMap;
 
     }
 
-    public String getManagementApiToken() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("client_id", config.getManagementApiClientId());
-        requestBody.put("client_secret", config.getManagementApiClientSecret());
-        requestBody.put("audience", "https://dev-zr9pcrck.us.auth0.comapi/v2/");
-        requestBody.put("grant_type", "client_credentials");
-
-        HttpEntity<String> request = new HttpEntity<String>(requestBody.toString(), headers);
-
-        RestTemplate restTemplate = new RestTemplate();
-        HashMap<String, String> result = restTemplate.postForObject("https://dev-zr9pcrck.us.auth0.com/oauth/token", request, HashMap.class);
-
-        return result.get("access_token");
-    }
 
     }
 

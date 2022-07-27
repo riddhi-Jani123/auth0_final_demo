@@ -15,5 +15,4 @@ public class Auth0Application {
     public RestTemplate getRestTemplate() {
         return new RestTemplate();
     }
-
 }

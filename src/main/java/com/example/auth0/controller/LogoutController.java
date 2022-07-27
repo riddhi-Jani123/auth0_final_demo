@@ -12,7 +12,6 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import org.springframework.stereotype.Controller;
 
 
-
 @Controller
 public class LogoutController implements LogoutSuccessHandler {
 

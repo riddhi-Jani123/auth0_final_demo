@@ -39,7 +39,7 @@ import java.io.UnsupportedEncodingException;
             http.csrf().disable();
             http
                     .authorizeRequests()
-                    .antMatchers("/callback", "/login", "/").permitAll()
+                    .antMatchers("/callback", "/login", "/","/home").permitAll()
                     .anyRequest().authenticated()
                     .and()
                     .formLogin()

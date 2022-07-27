@@ -21,28 +21,24 @@ import java.net.URI;
 
 @RestController
 public class HomeController {
-//    @Autowired
-//    private RestTemplate restTemplate;
+
     @PostMapping(value = "/")
     public ResponseEntity<Void> home(HttpServletRequest request, HttpServletResponse response, @RequestBody TokenDTO token) throws IOException {
-//        ObjectMapper mapper = new ObjectMapper();
+
         System.out.println("token "+token.getToken());
         DecodedJWT jwt = JWT.decode(token.getToken());
-        TestingAuthenticationToken authToken2 = new TestingAuthenticationToken(jwt.getSubject(),
-                jwt.getToken());
+        TestingAuthenticationToken authToken2 = new TestingAuthenticationToken(jwt.getSubject(), jwt.getToken());
         authToken2.setAuthenticated(true);
-       SecurityContextHolder.getContext().setAuthentication(authToken2);
+        SecurityContextHolder.getContext().setAuthentication(authToken2);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println("Authentication obj is :" + authentication);
         if (authentication != null && authentication instanceof TestingAuthenticationToken) {
             TestingAuthenticationToken tokenOg = (TestingAuthenticationToken) authentication;
-            System.out.println("Token is " + tokenOg);
             DecodedJWT jwt1 = JWT.decode(tokenOg.getCredentials().toString());
             String email = jwt1.getClaims().get("email").asString();
             System.out.println("email"+email);
             return ResponseEntity.status(HttpStatus.FOUND).location(URI.create("http://localhost:8080/home?email="+email+"")).build();
         } else {
-            System.out.println("register");
             response.sendRedirect("http://localhost:8080/register");
             return ResponseEntity.status(HttpStatus.OK).location(URI.create("http://localhost:8080/register")).build();
         }

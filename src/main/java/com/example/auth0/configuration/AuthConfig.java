@@ -25,15 +25,6 @@ import java.io.UnsupportedEncodingException;
         @Value(value = "${com.auth0.clientSecret}")
         private String clientSecret;
 
-    @Value(value = "${com.auth0.managementApi.clientId}")
-    private String managementApiClientId;
-
-    @Value(value = "${com.auth0.managementApi.clientSecret}")
-    private String managementApiClientSecret;
-
-    @Value(value = "${com.auth0.managementApi.grantType}")
-    private String grantType;
-
         @Override
         protected void configure(HttpSecurity http) throws Exception {
             http.csrf().disable();
@@ -69,37 +60,5 @@ import java.io.UnsupportedEncodingException;
         return clientSecret;
     }
 
-    public String getManagementApiClientId() {
-        return managementApiClientId;
-    }
 
-    public String getManagementApiClientSecret() {
-        return managementApiClientSecret;
-    }
-
-    public String getGrantType() {
-        return grantType;
-    }
-
-    public String getUserInfoUrl() {
-        return "https://" + getDomain() + "/userinfo";
-    }
-
-    public String getUsersUrl() {
-        return "https://" + getDomain() + "/api/v2/users";
-    }
-
-    public String getUsersByEmailUrl() {
-        return "https://" + getDomain() + "/api/v2/users-by-email?email=";
-    }
-
-    public String getLogoutUrl() {
-        return "https://" + getDomain() +"/v2/logout";
-    }
-
-    public String getContextPath(HttpServletRequest request) {
-        String path = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-        System.out.println(request.getServerPort());
-        return path;
-    }
     }
